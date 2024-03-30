@@ -2,6 +2,6 @@
 
 namespace Contoso.Tests.Framework;
 
-internal class ContosoWebApplicationFactory : WebApplicationFactory<Program>
+internal sealed class ContosoWebApplicationFactory : WebApplicationFactory<Program>
 {
 }
