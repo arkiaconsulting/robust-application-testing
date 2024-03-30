@@ -8,4 +8,7 @@ public class FakeUserStore : List<UserEntity>, IUserStore
 
         return Task.CompletedTask;
     }
+
+    Task<UserEntity> IUserStore.GetById(string id) =>
+        Task.FromResult(this.Single(u => u.Id == id));
 }

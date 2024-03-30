@@ -3,4 +3,5 @@
 public interface IUserStore
 {
     Task Add(UserEntity user);
+    Task<UserEntity> GetById(string id);
 }

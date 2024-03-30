@@ -1,5 +1,5 @@
-﻿using Contoso.Core.Application.Features.Users;
-using Contoso.Core.Application.Features.Users.CreateUser;
+﻿using Contoso.Core.Application.Features.Users.CreateUser;
+using Contoso.Core.Application.Features.Users.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,11 +20,11 @@ internal static class Endpoints
             return TypedResults.Ok(id);
         });
 
-        group.MapGet("/{id}", (string id, [FromServices] FakeUserStore store) =>
+        group.MapGet("/{id}", async (string id, [FromServices] ISender sender) =>
         {
-            var user = store.Single(u => u.Id == id);
+            var user = await sender.Send(new GetUserByIdQuery(id));
 
-            return TypedResults.Ok(new { user.FirstName, user.LastName });
+            return TypedResults.Ok(user);
         });
     }
 }
